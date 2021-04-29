@@ -14,7 +14,6 @@ def grahamScan(points):
     bottomLeftMost = getBottomLeftMost(bottomMostY,sortedPoints)
 
     sortedAngles = sortByAngle(bottomLeftMost,points)
-
     return getConvexHull(bottomLeftMost,sortedAngles)
 
 
@@ -25,8 +24,17 @@ def getConvexHull(startingPoint,sortedAngles):
         element = sortedAngles[i]
         angle,pointKey = element[0],element[1]
         point = destringify(pointKey)
-        if not isLeft(leftTestLine[0],leftTestLine[1],point):
-            pass
+        if isLeft(leftTestLine[0],leftTestLine[1],point):
+            leftTestLine[1] = point
+            convexHullStack.append(point)
+        else:
+            while len(convexHullStack) != 2 and not isLeft(leftTestLine[0],convexHullStack[-1],point):
+                convexHullStack.pop()
+            
+            convexHullStack.append(point)
+            leftTestLine[1] = point
+
+    return convexHullStack
 
 
 
@@ -35,20 +43,9 @@ def destringify(point):
     return [int(x),int(y)]
 
 
-
-
 def isLeft(a,b,c) -> bool:
  ##return ((b.X - a.X)*(c.Y - a.Y) - (b.Y - a.Y)*(c.X - a.X)) > 0;
-    return ((b[0] - a[0])*(c[1] - a[1]) - (b[1] - a[1])*(c[0] - a[0])) >=0 0
-
-
-
-
-
-    
-
-
-
+    return True if ((b[0] - a[0])*(c[1] - a[1]) - (b[1] - a[1])*(c[0] - a[0])) >=0  else 0
 
 
 def getBottomLeftMost(bottomMostY,points):
