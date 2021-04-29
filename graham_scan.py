@@ -19,20 +19,28 @@ def grahamScan(points):
 
 
 def getConvexHull(startingPoint,sortedAngles):
-    convexHullStack = [startingPoint]
-    leftTestLine = startingPoint
-    for i in range(len(sortedAngles)):
+    convexHullStack = [startingPoint,startingPoint[0]+.1,startingPoint[1]]]
+    leftTestLine = [startingPoint, [startingPoint[0]+.1,startingPoint[1]] ]
+    for i in range(1,len(sortedAngles)):
         element = sortedAngles[i]
-        angle,pointKey = 
+        angle,pointKey = element[0],element[1]
+        point = destringify(pointKey)
+        if not isLeft(leftTestLine[0],leftTestLine[1],point):
+            pass
+
+
+
+def destringify(point):
+    x,y = point.split(":")
+    return [int(x),int(y)]
 
 
 
 
 def isLeft(a,b,c) -> bool:
  ##return ((b.X - a.X)*(c.Y - a.Y) - (b.Y - a.Y)*(c.X - a.X)) > 0;
-}
-     return ((b[0] - a[0])*(c[1] - a[1]) - (b[1] - a[1])*(c[0] - a[0])) > 0
-}
+    return ((b[0] - a[0])*(c[1] - a[1]) - (b[1] - a[1])*(c[0] - a[0])) >=0 0
+
 
 
 
